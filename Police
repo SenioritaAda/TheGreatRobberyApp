@@ -1,0 +1,39 @@
+package TheGreatRobbery;
+import java.util.Random;
+
+public class Police {
+
+    private Random randomNumberGenerator = new Random();
+    private Detective adamPalmer;
+
+    public Police() {
+        Item[] adamsItems = new Item[2];
+        adamsItems[0] = new Item("Revolver", 552.5);
+        adamsItems[1] = new Item("Magnifying glass", 10.0);
+        adamPalmer = new Detective("Adam Palmer", "Coyote", 1980, "eating Sushi", adamsItems);
+    }
+
+    private boolean areCriminalsCaught(){
+        int randomSuccessRate = randomNumberGenerator.nextInt(101);
+        if (randomSuccessRate >= Detective.SUCCESS_PERCENTAGE){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public boolean catchCriminals(Gang gang){
+        if(areCriminalsCaught()) {
+            System.out.println(adamPalmer.getName() + " managed to catch the Gang.");
+            if (gang.getSumRobbedValue() > 0) {
+                System.out.println("The stolen items are recovered from the Gang.\nTheir overall value is estimated to $" + gang.getSumRobbedValue());
+            } else {
+                System.out.println("The gang couldn’t steal anything.");
+            }
+            return true;
+        }else{
+            System.out.println(adamPalmer.getName() + " did NOT managed to catch the Gang.");
+            System.out.println("The overall value of stolen items is estimated to $" + gang.getSumRobbedValue());
+            return false;
+        }
+    }
+}
